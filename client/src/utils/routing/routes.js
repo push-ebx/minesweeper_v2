@@ -1,0 +1,11 @@
+export const VIEW_MAIN = 'view_main';
+export const PAGE_MAIN = '/';
+export const PANEL_MAIN = 'panel_main';
+export const PAGE_GAMES = '/games';
+export const PANEL_GAMES = 'panel_games';
+export const PAGE_MINES = '/mines';
+export const PANEL_MINES = 'panel_mines';
+export const PAGE_MORE_7_LESS = '/more_7_less';
+export const PANEL_MORE_7_LESS = 'panel_more_7_less';
+export const MODAL_MINES_SETTINGS = 'mines_settings'
+export const MODAL_BET_GREATER_BALANCE = 'bet_greater_balance'
