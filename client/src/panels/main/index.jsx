@@ -3,6 +3,7 @@ import {useEffect} from "react";
 import { socket } from '@/api/socket';
 import bridge from "@vkontakte/vk-bridge";
 import axios from "axios";
+import AuthService from "@/api/user.js";
 
 const Main = ({id}) => {
 
@@ -35,26 +36,12 @@ const Main = ({id}) => {
   return (
     <Panel id={id}>
       <div>
-        <button onClick={() => {
-          let values = 'value';
-
-          bridge.send('VKWebAppCreateHash', {payload: values})
-            .then((data) => {
-              if (data.sign) {
-                axios.post(`${import.meta.env.VITE_DOMAIN}/api/test`, {
-                  data
-                })
-                .then(res => {
-                  console.log(res);
-                })
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-
+        <button onClick={async () => {
+            const res = await AuthService.getUser()
+            console.log(res)
+          }
           // socket.emit('chat message', 'input.value');
-        }}>кнопка</button>
+        }>кнопка</button>
         {import.meta.env.VITE_DOMAIN}
       </div>
     </Panel>

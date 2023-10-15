@@ -1,14 +1,14 @@
 const ApiError = require('../exceptions/api-error');
 const crypto = require("crypto");
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
   try {
-    const {sign: sign_param, ts, payload} = req.body.data
+    const {sign: sign_param, ts, payload} = req.query
     const client_secret = process.env.SECRET_KEY
 
     const hash_params = {
       app_id: process.env.APP_ID,
-      request_id: payload,
+      request_id: payload, // vk_id
       ts: ts,
       user_id: process.env.ADMIN_ID
     };
