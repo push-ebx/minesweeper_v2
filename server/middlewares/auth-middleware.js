@@ -1,26 +1,30 @@
 const ApiError = require('../exceptions/api-error');
-const tokenService = require('../service/token-service');
+const crypto = require("crypto");
 
 module.exports = function (req, res, next) {
   try {
-    const authorizationHeader = req.headers.authorization;
+    const {sign: sign_param, ts, payload} = req.body.data
+    const client_secret = process.env.SECRET_KEY
 
-    if (!authorizationHeader) {
-      return next(ApiError.UnauthorizedError());
+    const hash_params = {
+      app_id: process.env.APP_ID,
+      request_id: payload,
+      ts: ts,
+      user_id: process.env.ADMIN_ID
+    };
+
+    const sign_params_query = new URLSearchParams(hash_params).toString();
+
+    const sign = crypto.createHmac('sha256', client_secret)
+      .update(sign_params_query)
+      .digest("base64")
+      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
+    if (sign !== sign_param) {
+      next(ApiError.UnauthorizedError());
     }
 
-    const accessToken = authorizationHeader.split(' ')[1];
-
-    if (!accessToken) {
-      return next(ApiError.UnauthorizedError());
-    }
-
-    const userData = tokenService.validateAccessToken(accessToken);
-    if (!userData) {
-      return next(ApiError.UnauthorizedError());
-    }
-
-    req.user = userData;
+    req.payload = payload;
     next();
   } catch (e) {
     return next(ApiError.UnauthorizedError());

@@ -3,7 +3,6 @@ const router = new Router();
 const userController = require('../controllers/user-controller');
 const authMiddleware = require('../middlewares/auth-middleware');
 
-router.post('/login', userController.login);
-router.get('/user', authMiddleware, userController.getUser);
+router.post('/test', authMiddleware, userController.test)
 
 module.exports = router

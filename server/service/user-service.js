@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const tokenService = require('./token-service');
 const ApiError = require('../exceptions/api-error');
 const {User, Article} = require("../config");
@@ -60,44 +59,6 @@ class UserService {
     // delete user_candidate.hashPassword
     return user_candidate
   }
-
-  async login(username, password) {
-    const user = await this.getUser(username)
-
-    if (!user) {
-      throw ApiError.BadRequest('Пользователь с таким username не найден')
-    }
-    const isPassEquals = await bcrypt.compare(password, user.hashPassword);
-    if (!isPassEquals) {
-      throw ApiError.BadRequest('Неверный пароль');
-    }
-    delete user.hashPassword
-    const tokens = tokenService.generateTokens({username: user.username});
-    await tokenService.saveToken(user.id, tokens.refreshToken);
-    return {...tokens, user}
-  }
-
-  // async logout(refreshToken) {
-  //   const token = await tokenService.removeToken(refreshToken);
-  //   return token;
-  // }
-  //
-  // async refresh(refreshToken) {
-  //   if (!refreshToken) {
-  //     throw ApiError.UnauthorizedError();
-  //   }
-  //   const userData = tokenService.validateRefreshToken(refreshToken);
-  //   const tokenFromDb = await tokenService.findToken(refreshToken);
-  //   if (!userData || !tokenFromDb) {
-  //     throw ApiError.UnauthorizedError();
-  //   }
-  //   const user = await UserModel.findById(userData.id);
-  //   const userDto = new UserDto(user);
-  //   const tokens = tokenService.generateTokens({...userDto});
-  //
-  //   await tokenService.saveToken(userDto.id, tokens.refreshToken);
-  //   return {...tokens, user: userDto}
-  // }
 }
 
 module.exports = new UserService();

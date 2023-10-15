@@ -1,10 +1,14 @@
 import {Panel} from "@vkontakte/vkui";
 import {useEffect} from "react";
 import { socket } from '@/api/socket';
+import bridge from "@vkontakte/vk-bridge";
+import axios from "axios";
 
 const Main = ({id}) => {
 
   useEffect(() => {
+
+
     function onConnect() {
       console.log("con")
     }
@@ -32,7 +36,24 @@ const Main = ({id}) => {
     <Panel id={id}>
       <div>
         <button onClick={() => {
-          socket.emit('chat message', 'input.value');
+          let values = 'value';
+
+          bridge.send('VKWebAppCreateHash', {payload: values})
+            .then((data) => {
+              if (data.sign) {
+                axios.post(`${import.meta.env.VITE_DOMAIN}/api/test`, {
+                  data
+                })
+                .then(res => {
+                  console.log(res);
+                })
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+          // socket.emit('chat message', 'input.value');
         }}>кнопка</button>
         {import.meta.env.VITE_DOMAIN}
       </div>

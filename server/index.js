@@ -3,6 +3,8 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const cors = require('cors');
+const crypto = require('crypto')
+const router = require("./router")
 require('dotenv').config();
 
 const PORT = process.env.PORT;
@@ -10,6 +12,7 @@ const PORT = process.env.PORT;
 app
   .use(cors())
   .use(express.json())
+  .use('/api', router)
 
 const io = require("socket.io")(server, {
   cors: {
