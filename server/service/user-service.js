@@ -24,6 +24,18 @@ class UserService {
   async getUser(id_vk) {
     return UserSchema.findOne({id_vk})
   }
+
+  async setBalance(id_vk, balance) {
+    return UserSchema.updateOne({id_vk}, {
+      balance
+    })
+  }
+
+  async setOnlineStatus(id_vk, status) {
+    await UserSchema.updateOne({ id_vk }, {
+      is_online: status
+    });
+  }
 }
 
 module.exports = new UserService();

@@ -10,7 +10,7 @@ module.exports = async function (req, res, next) {
       app_id: process.env.APP_ID,
       request_id: payload, // vk_id
       ts: ts,
-      user_id: process.env.ADMIN_ID
+      user_id: payload
     };
 
     const sign_params_query = new URLSearchParams(hash_params).toString();

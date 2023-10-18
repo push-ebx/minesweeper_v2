@@ -1,49 +1,29 @@
-import {Panel} from "@vkontakte/vkui";
+import {Div, Panel, PanelHeader, PullToRefresh} from "@vkontakte/vkui";
+import {useFetchUser} from "@/utils/useFetchUser";
 import {useEffect} from "react";
-import { socket } from '@/api/socket';
-import bridge from "@vkontakte/vk-bridge";
-import axios from "axios";
-import AuthService from "@/api/user.js";
+import {socket} from "@/api/socket.js";
 
 const Main = ({id}) => {
+  const {balance, fetching, userID, updateInfo} = useFetchUser()
+
+  const onRefresh = async () => {
+    updateInfo()
+  }
 
   useEffect(() => {
-
-
-    function onConnect() {
-      console.log("con")
-    }
-
-    function onDisconnect() {
-      console.log("dis")
-    }
-
-    function onFooEvent(value) {
-      console.log(value)
-    }
-
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
-    socket.on('chat message', onFooEvent);
-
-    return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-      socket.off('foo', onFooEvent);
-    };
-  }, [])
+    userID && socket.emit('connected', {id_vk: userID});
+  }, [userID])
 
   return (
     <Panel id={id}>
-      <div>
-        <button onClick={async () => {
-            const res = await AuthService.getUser()
-            console.log(res)
-          }
-          // socket.emit('chat message', 'input.value');
-        }>кнопка</button>
-        {import.meta.env.VITE_DOMAIN}
-      </div>
+      <PanelHeader>Главная</PanelHeader>
+      <PullToRefresh onRefresh={onRefresh} isFetching={fetching}>
+        <Div
+          style={{height: 'calc(100vh - var(--vkui--size_panel_header_height--regular))'}}
+        >
+          Баланс: {balance}
+        </Div>
+      </PullToRefresh>
     </Panel>
   );
 };

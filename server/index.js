@@ -3,7 +3,6 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const cors = require('cors');
-const crypto = require('crypto')
 const router = require("./router")
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -30,6 +29,6 @@ app.get('/', (req, res) => {
 })
 
 mongoose.connect(DB_URL, {useUnifiedTopology: true, useNewUrlParser: true});
-server.listen(PORT, () => {
+server.listen(PORT, 'localhost',() => {
   console.log(`Server started on ${PORT}`);
 });

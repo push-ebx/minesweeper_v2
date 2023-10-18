@@ -1,0 +1,83 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  height: calc(100vh - var(--vkui--size_panel_header_height--regular) - var(--vkui_internal--tabbar_height));
+  padding: 1rem;
+}
+
+.balance {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input_bet {
+  input {
+    flex-grow: 2;
+  }
+
+  column-gap: .5rem;
+  display: flex;
+}
+
+.bet_buttons {
+  display: flex;
+  justify-content: space-between;
+  column-gap: .5rem;
+
+  button {
+    flex-grow: 1;
+  }
+}
+
+.circular{
+  svg {
+    height: 10em;
+    width: 100%;
+  }
+
+  span {
+    font-size: 3rem;
+    font-weight: 500;
+  }
+}
+
+.card_body {
+  overflow-y: hidden;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.card {
+  height: 100%;
+  width: 100%;
+}
+
+button {
+  font-size: 1rem !important;
+  color: #FFF !important;
+}
+
+.bets_wrapper {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.bets {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: .5rem;
+}
+
+.dices {
+  display: flex;
+  column-gap: 5rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}

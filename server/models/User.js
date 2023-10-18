@@ -9,7 +9,7 @@ const UserSchema = new Schema({
   balance: {type: Number, required: true},
   all_coin_win: {type: Number, required: true},
   all_games: {type: Number, required: true},
-  is_online: {type: Boolean},
+  is_online: {type: Boolean}
 })
 
 module.exports = model('User', UserSchema)

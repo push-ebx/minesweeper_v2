@@ -10,7 +10,7 @@ export const App = () => {
   const [activePanel] = useActivePanel(VIEW_MAIN)
 
   return (
-    <AppRoot>
+    <AppRoot className={"dark"}>
       <SplitLayout>
         <SplitCol>
           <View id={VIEW_MAIN} activePanel={activePanel}>
