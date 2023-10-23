@@ -13,3 +13,23 @@ html {
   font-size: 16px;
 }
 
+.vkui {
+  overflow-y: hidden;
+}
+
+h1 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  animation: .5s show ease;
+}
+
+h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  animation: .5s show ease;
+}
+
+@keyframes show {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

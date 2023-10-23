@@ -2,6 +2,9 @@ const ApiError = require('../exceptions/api-error');
 const UserSchema = require("../models/User");
 
 class UserService {
+  io;
+  users;
+  socket;
   async createUser(body) {
     const count = await UserSchema.countDocuments();
     const {id: id_vk, first_name, last_name, photo_100: avatar_url} = body
@@ -22,6 +25,12 @@ class UserService {
   }
 
   async getUser(id_vk) {
+    return UserSchema.findOne({id_vk})
+  }
+
+  async updateBalance(id_vk) {
+    const socket_id = Object.keys(this.users).find(key => this.users[key] === +id_vk)
+    this.socket.to(socket_id).emit('update balance')
     return UserSchema.findOne({id_vk})
   }
 

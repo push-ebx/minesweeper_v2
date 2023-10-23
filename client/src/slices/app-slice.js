@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   appearance: "dark",
-  isLoaded: false
+  isLoaded: false,
+  online: 0
 };
 
 const appSlice = createSlice({
@@ -13,6 +14,9 @@ const appSlice = createSlice({
     setAppearance: (state, action) => {
       state.appearance = action.payload;
     },
+    setOnline: (state, action) => {
+      state.online = action.payload;
+    },
     toggleIsLoaded: (state) => {
       state.isLoaded = !state.isLoaded
     }
@@ -21,6 +25,7 @@ const appSlice = createSlice({
 
 export const {
   setAppearance,
+  setOnline,
   toggleIsLoaded
 } = appSlice.actions;
 export default appSlice.reducer;

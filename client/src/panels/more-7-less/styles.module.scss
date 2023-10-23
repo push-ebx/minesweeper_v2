@@ -45,21 +45,6 @@
   }
 }
 
-.card_body {
-  overflow-y: hidden;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-}
-
-.card {
-  height: 100%;
-  width: 100%;
-  min-height: 23vh;
-  box-shadow: none;
-  background-color: #27272a;
-}
-
 button {
   font-size: 1rem !important;
   color: #FFF !important;
@@ -107,18 +92,6 @@ button {
 .dices {
   display: flex;
   column-gap: 5rem;
-  animation: .5s show ease;
-}
-
-h1 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  animation: .5s show ease;
-}
-
-h2 {
-  font-size: 1.05rem;
-  font-weight: 600;
   animation: .5s show ease;
 }
 

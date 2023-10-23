@@ -18,7 +18,7 @@ class more7LessService {
   coefficients = {more: 2.3, less: 2.3, equal: 5.8};
 
   stopGame() {
-    this.io.emit('stop game', {dices: this.game.dices, key: this.game.key})
+    this.io.emit('stop game m7l', {dices: this.game.dices, key: this.game.key})
     const sum_dices = this.game.dices[0] + this.game.dices[1]
     const win_type = sum_dices > 7 ? 'more' : (sum_dices < 7 ? 'less' : 'equal')
     this.history.unshift([this.game.dices[0], this.game.dices[1]])
@@ -46,10 +46,10 @@ class more7LessService {
     this.game.key = this.game.dices[0] + this.game.dices[1] + '|' + randomString(16);
     this.game.hash = MD5(this.game.key).toString();
 
-    this.io.emit('start game', {hash: this.game.hash});
+    this.io.emit('start game m7l', {hash: this.game.hash});
 
     const timer = setInterval(() => {
-      this.io.emit('lost time', {lost_time: this.game.lost_time--})
+      this.io.emit('lost time m7l', {lost_time: this.game.lost_time--})
       if (this.game.lost_time < 0) {
         clearInterval(timer)
         this.stopGame()
@@ -77,7 +77,7 @@ class more7LessService {
     };
     this.game.bets.push(new_bet)
 
-    await this.io.emit('new bet', new_bet)
+    await this.io.emit('new bet  m7l', new_bet)
     await userService.setBalance(id_vk, user.balance - bet)
 
     !this.game.dices.length && this.startGame()

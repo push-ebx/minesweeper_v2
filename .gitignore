@@ -12,6 +12,8 @@ dist
 */.env
 dist-ssr
 *.local
+server/deposit/config.py
+server/deposit/.venv
 
 # Editor directories and files
 .vscode/*

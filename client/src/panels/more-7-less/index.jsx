@@ -1,27 +1,22 @@
+import styles from "./styles.module.scss";
 import {Panel, PanelHeader, PanelHeaderBack} from "@vkontakte/vkui";
 import {router} from "@/utils/routing";
 import {useEffect, useState} from "react";
-import {
-  Button, ButtonGroup,
-  Card,
-  CardBody,
-  CircularProgress,
-  Input, ScrollShadow, Skeleton,
-  useDisclosure,
-  User
-} from "@nextui-org/react";
+import {Button, ButtonGroup, CircularProgress, Input, ScrollShadow, Skeleton, useDisclosure, User}
+  from "@nextui-org/react";
 import {socket} from "@/api/socket";
 import More7LessService, {TypeBet} from "@/api/more-7-less";
 import {useDispatch, useSelector} from "react-redux";
 import {changeBalance} from "@/slices/user-slice";
-import styles from "./styles.module.scss";
 import {Dice} from "@/components/Dice";
 import {GameModal} from "@/components/GameModal"
+import {BoxInfo} from "@/components/BoxInfo";
+import {formatNumber} from "@/utils/index.js";
 
 const More7Less = ({id}) => {
   const balance = useSelector(state => state.user.balance)
   const userID = useSelector(state => state.user.userID)
-  const [bet, setBet] = useState(Math.floor(balance / 10))
+  const [bet, setBet] = useState('')
   const [bets, setBets] = useState([])
   const [dices, setDices] = useState([])
   const [lost_time, setLostTime] = useState(0)
@@ -39,10 +34,11 @@ const More7Less = ({id}) => {
   useEffect(() => {
     fetchBets()
     fetchHistory()
-    socket.on('start game', data => setHash(data.hash))
-    socket.on('new bet', newBet)
-    socket.on('stop game', stopGame)
-    socket.on('lost time', data => setLostTime(data.lost_time))
+
+    socket.on('start game m7l', data => setHash(data.hash))
+    socket.on('new bet m7l', newBet)
+    socket.on('stop game m7l', stopGame)
+    socket.on('lost time m7l', data => setLostTime(data.lost_time))
   }, [])
 
   useEffect(() => {
@@ -57,8 +53,7 @@ const More7Less = ({id}) => {
     if (win_type === my_bet.type_bet) {
       setTimeout(() => dispatch(changeBalance(coefficients[win_type] * bet)), 2000);
       setModalBody("Ты выиграл " + coefficients[win_type] * bet + '!');
-    }
-    else {
+    } else {
       setModalBody("Ты проиграл " + bet + "!")
     }
   }, [dices])
@@ -84,11 +79,11 @@ const More7Less = ({id}) => {
 
   const stopGame = (data) => {
     setDices(data.dices)
-    setKey(data.key)
 
     setTimeout(() => {
       onOpen()
       setHistory(prev => [data.dices, ...prev])
+      setKey(data.key)
     }, 2500)
     setTimeout(() => {
       onClose()
@@ -96,7 +91,7 @@ const More7Less = ({id}) => {
       setDices([])
       setIsGame(false)
       setModalBody('')
-      // setKey('')
+      setKey('')
       // setHash('')
     }, 5000)
   }
@@ -125,8 +120,8 @@ const More7Less = ({id}) => {
 
   const DiceCard = () => (
     <div className={styles.dices}>
-      <Dice value={dices[0]} />
-      <Dice value={dices[1]} />
+      <Dice value={dices[0]}/>
+      <Dice value={dices[1]}/>
     </div>
   )
 
@@ -140,18 +135,16 @@ const More7Less = ({id}) => {
       >
         <div className={styles.balance}>
           <h2>Твой баланс:</h2>
-          <h2>${balance}</h2>
+          <h2>{formatNumber(balance)}</h2>
         </div>
 
-        <Card className={styles.card}>
-          <CardBody className={styles.card_body}>
+        <BoxInfo>
           {
             dices.length ? DiceCard() :
-            lost_time ? TimerCard() :
-            <h1>Сделай ставку первым!</h1>
+              lost_time ? TimerCard() :
+                <h1>Сделай ставку первым!</h1>
           }
-          </CardBody>
-        </Card>
+        </BoxInfo>
 
         <div className={styles.input_bet}>
           <Input
@@ -213,7 +206,7 @@ const More7Less = ({id}) => {
                 <div className={styles.bet}>
                   <User
                     name={`${_bet.last_name} ${_bet.first_name}`}
-                    description={'$' + _bet.bet}
+                    description={formatNumber(_bet.bet)}
                     avatarProps={{
                       src: _bet.avatar_url
                     }}
@@ -223,7 +216,7 @@ const More7Less = ({id}) => {
                     <span>
                       {
                         _bet.type_bet === "less" ? "<" :
-                        _bet.type_bet === "equal" ? "=" : ">"
+                          _bet.type_bet === "equal" ? "=" : ">"
                       }
                     </span>
                   </div>
