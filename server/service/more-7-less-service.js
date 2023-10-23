@@ -1,9 +1,11 @@
 const ApiError = require('../exceptions/api-error');
 const userService = require('../service/user-service');
+const {MD5, randomString} = require("../utils");
 
 const getRandomInt = max => Math.floor(Math.random() * max) + 1;
 
 class more7LessService {
+  history = [[1, 1], [2,4], [5,2], [6,3], [6,6], [1, 1], [2,4], [5,2], [6,3], [6,6], [1, 1], [2,4], [5,2], [6,3]];
   io;
   game = {
     bets_by_type: {more: [], equal: [], less: []},
@@ -16,9 +18,10 @@ class more7LessService {
   coefficients = {more: 2.3, less: 2.3, equal: 5.8};
 
   stopGame() {
-    this.io.emit('stop game', {dices: this.game.dices})
+    this.io.emit('stop game', {dices: this.game.dices, key: this.game.key})
     const sum_dices = this.game.dices[0] + this.game.dices[1]
     const win_type = sum_dices > 7 ? 'more' : (sum_dices < 7 ? 'less' : 'equal')
+    this.history.unshift([this.game.dices[0], this.game.dices[1]])
 
     this.game.bets_by_type[win_type].map(async bet => {
       const user = await userService.getUser(bet.id_vk)
@@ -38,9 +41,12 @@ class more7LessService {
   }
 
   startGame() {
-    this.io.emit('start game')
-    this.game.lost_time = 5
-    this.game.dices = [getRandomInt(6), getRandomInt(6)]
+    this.game.lost_time = 10;
+    this.game.dices = [getRandomInt(6), getRandomInt(6)];
+    this.game.key = this.game.dices[0] + this.game.dices[1] + '|' + randomString(16);
+    this.game.hash = MD5(this.game.key).toString();
+
+    this.io.emit('start game', {hash: this.game.hash});
 
     const timer = setInterval(() => {
       this.io.emit('lost time', {lost_time: this.game.lost_time--})
@@ -80,6 +86,10 @@ class more7LessService {
 
   async getBank() {
     return this.game.bets
+  }
+
+  async getHistory() {
+    return this.history.slice(0, 20)
   }
 }
 

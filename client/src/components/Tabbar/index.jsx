@@ -18,9 +18,9 @@ const Tabbar = ({activePanel}) => {
       >
         <Icon28GameOutline />
       </TabbarItem>
-      <TabbarItem>
-        <Icon28CupOutline />
-      </TabbarItem>
+      {/*<TabbarItem>*/}
+      {/*  <Icon28CupOutline />*/}
+      {/*</TabbarItem>*/}
     </TabbarVK>
   );
 };

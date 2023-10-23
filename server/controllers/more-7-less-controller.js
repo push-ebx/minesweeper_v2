@@ -16,7 +16,15 @@ class More7LessController {
   async getBank(req, res, next) {
     try {
       const result = await more7LessService.getBank();
-      console.log(result)
+      return res.json(result);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async getHistory(req, res, next) {
+    try {
+      const result = await more7LessService.getHistory();
       return res.json(result);
     } catch (e) {
       next(e);

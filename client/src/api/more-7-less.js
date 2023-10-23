@@ -18,4 +18,9 @@ export default class More7LessService {
     const res = await $api.get('/getBank')
     return res.data
   }
+
+  static async getHistory() {
+    const res = await $api.get('/getHistory')
+    return res.data
+  }
 }

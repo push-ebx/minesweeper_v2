@@ -1,4 +1,4 @@
-import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
+import {Badge, Card, CardBody, CardFooter, Image} from "@nextui-org/react";
 import {Panel, PanelHeader, PanelHeaderBack} from "@vkontakte/vkui";
 import {router} from "@/utils/routing";
 import {gameList} from "./game-list";
@@ -28,13 +28,16 @@ const Games = ({id}) => {
               style={{margin: 5}}
             >
               <CardBody>
-                <Image
-                  shadow="sm"
-                  radius="lg"
-                  width="100px"
-                  alt={item.label}
-                  src={item.img}
-                />
+                <Badge content="new" color="danger" size="sm">
+                  <Image
+                    shadow="sm"
+                    radius="lg"
+                    width="100px"
+                    height="100px"
+                    alt={item.label}
+                    src={item.img}
+                  />
+                </Badge>
               </CardBody>
               <CardFooter className="text-small justify-between">
                 <b>{item.label}</b>

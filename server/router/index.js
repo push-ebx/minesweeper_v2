@@ -9,5 +9,6 @@ router.get('/getUser', authMiddleware, userController.getUser)
 
 router.post('/newBet', authMiddleware, more7LessController.newBet)
 router.get('/getBank', authMiddleware, more7LessController.getBank)
+router.get('/getHistory', authMiddleware, more7LessController.getHistory)
 
 module.exports = router

@@ -2,16 +2,10 @@ import './index.scss'
 import {useEffect, useState} from "react";
 
 const Dice = ({value}) => {
-  const [showValue, setShowValue] = useState(Math.floor(Math.random() * 6) + 1)
+  const [showValue, setShowValue] = useState(0)
 
   useEffect(() => {
-    // setInterval(() => setShowValue(Math.floor(Math.random() * 6) + 1), 1000)
-    if (value === showValue) {
-      setShowValue(prev => (prev + 1) % 6)
-      setTimeout(() => setShowValue(prev => value), 500)
-      return
-    }
-    setShowValue(prev => value)
+    setTimeout(() => setShowValue(value), 50)
   }, [])
 
   return (
