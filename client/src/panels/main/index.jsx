@@ -35,11 +35,11 @@ const Main = ({id}) => {
           </BoxInfo>
 
           <div className={styles.statistics}>
-            <div>Столько выиграл</div>
-            <div>Столько проиграл</div>
-            <div>Сколько ставок</div>
-            <div>Выиграно</div>
-            <div>Проиграно</div>
+            {/*<div>Столько выиграл</div>*/}
+            {/*<div>Столько проиграл</div>*/}
+            {/*<div>Сколько ставок</div>*/}
+            {/*<div>Выиграно</div>*/}
+            {/*<div>Проиграно</div>*/}
           </div>
         </div>
       </PullToRefresh>

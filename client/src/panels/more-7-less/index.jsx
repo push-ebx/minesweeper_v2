@@ -16,7 +16,7 @@ import {formatNumber} from "@/utils/index.js";
 const More7Less = ({id}) => {
   const balance = useSelector(state => state.user.balance)
   const userID = useSelector(state => state.user.userID)
-  const [bet, setBet] = useState('')
+  const [bet, setBet] = useState('1000')
   const [bets, setBets] = useState([])
   const [dices, setDices] = useState([])
   const [lost_time, setLostTime] = useState(0)
@@ -52,9 +52,9 @@ const More7Less = ({id}) => {
 
     if (win_type === my_bet.type_bet) {
       setTimeout(() => dispatch(changeBalance(coefficients[win_type] * bet)), 2000);
-      setModalBody("Ты выиграл " + coefficients[win_type] * bet + '!');
+      setModalBody("Ты выиграл " + coefficients[win_type] * formatNumber(bet) + '!');
     } else {
-      setModalBody("Ты проиграл " + bet + "!")
+      setModalBody("Ты проиграл " + formatNumber(bet) + "!")
     }
   }, [dices])
 
@@ -97,6 +97,11 @@ const More7Less = ({id}) => {
   }
 
   const makeBet = async (type_bet) => {
+    if (dices.length) {
+      setModalBody("Идет подведение итогов!")
+      onOpen()
+      return
+    }
     if (!isFinite(bet) || bet <= 0 || bet > balance) {
       setModalBody("Некорректная ставка!")
       onOpen()
@@ -149,6 +154,7 @@ const More7Less = ({id}) => {
         <div className={styles.input_bet}>
           <Input
             isDisabled={isGame}
+            type="number"
             placeholder="Введи ставку..."
             onChange={e => setBet(e.target.value)}
             value={bet.toString()}

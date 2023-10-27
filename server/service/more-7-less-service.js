@@ -15,7 +15,7 @@ class more7LessService {
     key: "",
     dices: [],
   };
-  coefficients = {more: 2.3, less: 2.3, equal: 5.8};
+  coefficients = {more: 1.9, less: 1.9, equal: 5.8};
 
   stopGame() {
     this.io.emit('stop game m7l', {dices: this.game.dices, key: this.game.key})
@@ -77,7 +77,7 @@ class more7LessService {
     };
     this.game.bets.push(new_bet)
 
-    await this.io.emit('new bet  m7l', new_bet)
+    await this.io.emit('new bet m7l', new_bet)
     await userService.setBalance(id_vk, user.balance - bet)
 
     !this.game.dices.length && this.startGame()
