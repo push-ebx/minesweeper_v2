@@ -25,21 +25,19 @@ const Games = ({id}) => {
               key={index}
               isPressable
               onPress={() => router.pushPage(item.page_title)}
-              style={{margin: 5}}
+              style={{paddingBottom: 5}}
             >
-              <CardBody>
-                <Badge content="new" color="danger" size="sm">
-                  <Image
-                    shadow="sm"
-                    radius="lg"
-                    width="100px"
-                    height="100px"
-                    alt={item.label}
-                    src={item.img}
-                  />
-                </Badge>
+              <CardBody style={{display: 'flex', alignItems: 'center'}}>
+                <Image
+                  shadow="sm"
+                  radius="lg"
+                  width="100px"
+                  height="100px"
+                  alt={item.label}
+                  src={item.img}
+                />
               </CardBody>
-              <CardFooter className="text-small justify-between">
+              <CardFooter className="text-small">
                 <b>{item.label}</b>
               </CardFooter>
             </Card>

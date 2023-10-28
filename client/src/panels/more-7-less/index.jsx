@@ -29,7 +29,7 @@ const More7Less = ({id}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const dispatch = useDispatch();
 
-  const coefficients = {more: 2.3, less: 2.3, equal: 5.8};
+  const coefficients = {more: 1.9, less: 1.9, equal: 5.8};
 
   useEffect(() => {
     fetchBets()

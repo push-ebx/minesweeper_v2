@@ -9,7 +9,7 @@ export const gameList = [
   //   img: mines,
   // },
   {
-    label: "More than 7 less",
+    label: "Больше 7 Меньше",
     page_title: PAGE_MORE_7_LESS,
     img: more_7_less,
   },

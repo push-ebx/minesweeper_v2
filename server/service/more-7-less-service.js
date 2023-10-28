@@ -25,6 +25,7 @@ class more7LessService {
 
     this.game.bets_by_type[win_type].map(async bet => {
       const user = await userService.getUser(bet.id_vk)
+      console.log(+user.balance + bet.bet * this.coefficients[win_type])
       await userService.setBalance(bet.id_vk, +user.balance + bet.bet * this.coefficients[win_type])
     })
 
