@@ -7,6 +7,7 @@ const authMiddleware = require('../middlewares/auth-middleware');
 router.post('/createUser', authMiddleware, userController.createUser)
 router.get('/getUser', authMiddleware, userController.getUser)
 router.get('/updateBalance', userController.updateBalance)
+router.post('/withdraw', authMiddleware, userController.withdraw)
 
 router.post('/newBet', authMiddleware, more7LessController.newBet)
 router.get('/getBank', authMiddleware, more7LessController.getBank)

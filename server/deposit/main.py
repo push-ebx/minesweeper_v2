@@ -14,7 +14,9 @@ async def deposit(message: Message):
     if message.peer_id == BOT_BANDIT_ID and "ты получил" in message.text and "баланс" in message.text:
       amount = int(message.text.split("$")[1].split(" ")[0].replace(".", ""))
       uid = message.text.split("[")[1].split("|")[0].split("d")[1]
-      collection.update_one({"id_vk": int(uid)}, {"$inc": {"balance": Int64(amount)}})
+      balance = int(collection.find_one({'id_vk': uid})['balance'])
+      print(balance, uid)
+      collection.update_one({"id_vk": uid}, {"$set": {"balance": str(balance + amount)}})
 
       requests.get(f'{SERVER_URL}/api/updateBalance?id_vk={uid}')
   except e as Exception:

@@ -31,7 +31,7 @@ export const App = () => {
   useEffect(() => {
     if (userID) {
       socket.emit('connected', {id_vk: userID});
-      socket.on('update balance', updateInfo);
+      socket.on('update balance', ({id_vk}) => id_vk === userID && updateInfo());
       socket.on('new online', data => dispatch(setOnline(data.online)))
     }
   }, [userID])
@@ -44,7 +44,7 @@ export const App = () => {
 
   return (
     <>
-      {/*<Loader isLoading={!userID} isFullScreen/>*/}
+      <Loader isLoading={!userID} isFullScreen/>
       <AppRoot className={"dark"}>
         <SplitLayout modal={modal}>
           <SplitCol>
@@ -54,7 +54,6 @@ export const App = () => {
               <Mines id={PANEL_MINES} />
               <More7Less id={PANEL_MORE_7_LESS} />
             </View>
-
             <Tabbar activePanel={activePanel} />
           </SplitCol>
         </SplitLayout>

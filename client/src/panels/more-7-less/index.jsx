@@ -52,7 +52,7 @@ const More7Less = ({id}) => {
 
     if (win_type === my_bet.type_bet) {
       setTimeout(() => dispatch(changeBalance(coefficients[win_type] * bet)), 2000);
-      setModalBody("Ты выиграл " + coefficients[win_type] * formatNumber(bet) + '!');
+      setModalBody("Ты выиграл " + formatNumber(coefficients[win_type] * bet) + '!');
     } else {
       setModalBody("Ты проиграл " + formatNumber(bet) + "!")
     }

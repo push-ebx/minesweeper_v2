@@ -1,7 +1,7 @@
 import {Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader} from "@nextui-org/react";
 import styles from "./styles.module.scss"
 
-export const GameModal = ({title, body, isOpen, onClose}) => (
+export const GameModal = ({title, body, isOpen, onClose, textButton}) => (
   <Modal hideCloseButton backdrop={"blur"} isOpen={isOpen} onClose={onClose} placement="center">
     <ModalContent className={styles.modal}>
       {(onClose) => (
@@ -12,7 +12,7 @@ export const GameModal = ({title, body, isOpen, onClose}) => (
           </ModalBody>
           <ModalFooter>
             <Button color="success" onPress={onClose}>
-              Ок
+              {textButton ?? "Ок"}
             </Button>
           </ModalFooter>
         </>

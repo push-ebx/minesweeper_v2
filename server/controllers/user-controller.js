@@ -1,9 +1,7 @@
 const userService = require('../service/user-service');
-const ApiError = require('../exceptions/api-error');
 
 class UserController {
   async getUser(req, res, next) {
-    console.log(req.payload)
     const id_vk = req.payload
 
     try {
@@ -16,7 +14,7 @@ class UserController {
 
   async updateBalance(req, res, next) {
     const {id_vk} = req.query
-    console.log(id_vk)
+
     try {
       await userService.updateBalance(id_vk);
       return res.json('Balance has been updated');
@@ -30,6 +28,17 @@ class UserController {
     try {
       const user = await userService.createUser(req.body);
       return res.json(user);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async withdraw(req, res, next) {
+    const id_vk = req.payload
+
+    try {
+      const result = await userService.withdraw(id_vk);
+      return res.json(result);
     } catch (e) {
       next(e);
     }

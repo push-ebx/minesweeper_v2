@@ -1,13 +1,18 @@
 const ApiError = require('../exceptions/api-error');
 const UserSchema = require("../models/User");
+const {send_message_vk} = require("../utils");
 
 class UserService {
   io;
   users;
   socket;
+
   async createUser(body) {
     const count = await UserSchema.countDocuments();
     const {id: id_vk, first_name, last_name, photo_100: avatar_url} = body
+    const user_candidate = await this.getUser(id_vk)
+
+    if (user_candidate) return user_candidate
 
     const user = new UserSchema({
       id: count + 1,
@@ -29,8 +34,8 @@ class UserService {
   }
 
   async updateBalance(id_vk) {
-    const socket_id = Object.keys(this.users).find(key => this.users[key] === +id_vk)
-    this.socket.to(socket_id).emit('update balance')
+    // const socket_id = Object.keys(this.users).find(key => this.users[key] === +id_vk)
+    this.socket.emit('update balance', {id_vk})
     return UserSchema.findOne({id_vk})
   }
 
@@ -41,9 +46,20 @@ class UserService {
   }
 
   async setOnlineStatus(id_vk, status) {
-    await UserSchema.updateOne({ id_vk }, {
+    await UserSchema.updateOne({id_vk}, {
       is_online: status
     });
+  }
+
+  async withdraw(id_vk) {
+    const user = await this.getUser(id_vk)
+
+    if (user.balance > 0) {
+      await send_message_vk(process.env.BOT_BANDIT_ID, `передать @id${id_vk} ${Math.floor(user.balance)}`,
+                            process.env.BOT_TOKEN)
+      await this.setBalance(id_vk, 0)
+    }
+    return 'error'
   }
 }
 

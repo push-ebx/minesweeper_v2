@@ -10,4 +10,9 @@ export default class UserService {
     const res = await $api.post('/createUser', {..._user})
     return res.data
   }
+
+  static async withdraw () {
+    const res = await $api.post('/withdraw')
+    return res.data
+  }
 }
