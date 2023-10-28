@@ -1,4 +1,5 @@
 const more7LessService = require('../service/more-7-less-service');
+const {logger} = require("../utils");
 
 class More7LessController {
   async newBet(req, res, next) {
@@ -9,6 +10,7 @@ class More7LessController {
       const result = await more7LessService.newBet(id_vk, bet, type_bet);
       return res.json(result);
     } catch (e) {
+      logger.info(`newBet(): ${e}`);
       next(e);
     }
   }
@@ -18,6 +20,7 @@ class More7LessController {
       const result = await more7LessService.getBank();
       return res.json(result);
     } catch (e) {
+      logger.info(`getBank(): ${e}`);
       next(e);
     }
   }
@@ -27,6 +30,7 @@ class More7LessController {
       const result = await more7LessService.getHistory();
       return res.json(result);
     } catch (e) {
+      logger.info(`getHistory(): ${e}`);
       next(e);
     }
   }

@@ -1,5 +1,6 @@
 const ApiError = require('../exceptions/api-error');
 const crypto = require("crypto");
+const {logger} = require("../utils");
 
 module.exports = async function (req, res, next) {
   try {
@@ -27,6 +28,7 @@ module.exports = async function (req, res, next) {
     req.payload = payload;
     next();
   } catch (e) {
+    logger.info(`Auth: ${e}`);
     return next(ApiError.UnauthorizedError());
   }
 };

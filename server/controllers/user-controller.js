@@ -1,4 +1,5 @@
 const userService = require('../service/user-service');
+const {logger} = require("../utils");
 
 class UserController {
   async getUser(req, res, next) {
@@ -8,6 +9,7 @@ class UserController {
       const user = await userService.getUser(id_vk);
       return res.json(user);
     } catch (e) {
+      logger.info(`getUser(): ${e}`);
       next(e);
     }
   }
@@ -19,6 +21,7 @@ class UserController {
       await userService.updateBalance(id_vk);
       return res.json('Balance has been updated');
     } catch (e) {
+      logger.info(`updateBalance(): ${e}`);
       next(e);
     }
   }
@@ -29,6 +32,7 @@ class UserController {
       const user = await userService.createUser(req.body);
       return res.json(user);
     } catch (e) {
+      logger.info(`createUser(): ${e}`);
       next(e);
     }
   }
@@ -40,6 +44,7 @@ class UserController {
       const result = await userService.withdraw(id_vk);
       return res.json(result);
     } catch (e) {
+      logger.info(`withdraw(): ${e}`);
       next(e);
     }
   }

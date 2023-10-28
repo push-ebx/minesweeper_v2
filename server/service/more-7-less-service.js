@@ -1,6 +1,6 @@
 const ApiError = require('../exceptions/api-error');
 const userService = require('../service/user-service');
-const {MD5, randomString} = require("../utils");
+const {MD5, randomString, logger} = require("../utils");
 
 const getRandomInt = max => Math.floor(Math.random() * max) + 1;
 
@@ -18,6 +18,8 @@ class more7LessService {
   coefficients = {more: 1.9, less: 1.9, equal: 5.8};
 
   stopGame() {
+    logger.info(`stopGame(): (game: ${JSON.stringify(this.game)})`);
+
     this.io.emit('stop game m7l', {dices: this.game.dices, key: this.game.key})
     const sum_dices = this.game.dices[0] + this.game.dices[1]
     const win_type = sum_dices > 7 ? 'more' : (sum_dices < 7 ? 'less' : 'equal')
@@ -37,6 +39,7 @@ class more7LessService {
         key: "",
         dices: []
       }
+      logger.info(`stopGame(): game is reset`);
     }, 5000)
   }
 
@@ -47,6 +50,7 @@ class more7LessService {
     this.game.hash = MD5(this.game.key).toString();
 
     this.io.emit('start game m7l', {hash: this.game.hash});
+    logger.info(`startGame(): game is started ${JSON.stringify(this.game)}`);
 
     const timer = setInterval(() => {
       this.io.emit('lost time m7l', {lost_time: this.game.lost_time--})
@@ -64,6 +68,8 @@ class more7LessService {
     if (!isFinite(bet)) return 'Некорректная ставка!'
 
     const user = await userService.getUser(id_vk)
+    logger.info(`newBet(): (user: ${JSON.stringify(user)}, bet: ${bet}, type_bet: ${type_bet})`);
+
     if (user.balance < bet) return 'Ставка больше баланса!'
 
     this.game.bets_by_type[type_bet].push({id_vk, bet})

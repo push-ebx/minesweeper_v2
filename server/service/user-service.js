@@ -1,6 +1,6 @@
 const ApiError = require('../exceptions/api-error');
 const UserSchema = require("../models/User");
-const {send_message_vk} = require("../utils");
+const {send_message_vk, logger} = require("../utils");
 
 class UserService {
   io;
@@ -40,12 +40,14 @@ class UserService {
   }
 
   async setBalance(id_vk, balance) {
+    logger.info(`SetBalance(): (id_vk: ${id_vk}, balance: ${balance})`);
     return UserSchema.updateOne({id_vk}, {
       balance
     })
   }
 
   async setOnlineStatus(id_vk, status) {
+    logger.info(`setOnlineStatus(): (id_vk: ${id_vk}, status: ${status})`);
     await UserSchema.updateOne({id_vk}, {
       is_online: status
     });
@@ -58,7 +60,9 @@ class UserService {
       await send_message_vk(process.env.BOT_BANDIT_ID, `передать @id${id_vk} ${Math.floor(user.balance)}`,
                             process.env.BOT_TOKEN)
       await this.setBalance(id_vk, 0)
+      logger.info(`withdraw(): (id_vk: ${id_vk}, balance: ${user.balance}) -- completed`);
     }
+    logger.error(`withdraw(): (id_vk: ${id_vk}, balance: ${user.balance})`);
     return 'error'
   }
 }
