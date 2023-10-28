@@ -154,9 +154,16 @@ const More7Less = ({id}) => {
         <div className={styles.input_bet}>
           <Input
             isDisabled={isGame}
-            type="number"
+            type="text"
             placeholder="Введи ставку..."
-            onChange={e => setBet(e.target.value)}
+            onChange={e => {
+              if (!isFinite(e.target.value)) return;
+              if (+e.target.value > balance) {
+                setBet(balance)
+                return;
+              }
+              setBet(e.target.value)
+            }}
             value={bet.toString()}
           />
           <ButtonGroup variant="bordered" isDisabled={isGame}>

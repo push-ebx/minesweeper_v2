@@ -29,7 +29,7 @@ const userSlice = createSlice({
       state.last_name = action.payload
     },
     changeBalance: (state, action) => {
-      state.balance += Math.floor(action.payload)
+      state.balance = +state.balance + Math.floor(action.payload)
     }
   },
 });

@@ -25,7 +25,7 @@ const Main = ({id}) => {
   const onDeposit = () => {
     onOpenDeposit()
     bridge.send('VKWebAppCopyText', {
-      text: 'Передать @nickname '
+      text: 'Передать @saper_bot__bandit '
     })
   }
 
@@ -49,7 +49,7 @@ const Main = ({id}) => {
             avatarProps={{
               src: avatar_url
             }}
-            description={'online ' + online}
+            description={'online: ' + online}
           />
         </PanelHeaderContent>
       </PanelHeader>
@@ -76,17 +76,16 @@ const Main = ({id}) => {
       <GameModal
         title={'Пополнение'}
         body={"Чтобы пополнить баланс, перейди в диалог с Бот Бандит и отправь" +
-          " сообщение (оно скопируется в буфер обмена): Передать @nickname [сумма]."}
+          " сообщение (оно скопируется в буфер обмена): Передать @saper_bot__bandit [сумма]."}
         onClose={onCloseDeposit}
         isOpen={isOpenDeposit}
-        // textButton={<a href={"https://vk.com/im?sel=-166948584"}>Перейти в диалог</a>}
+        textButton={<a target={'_blank'} href={"https://vk.com/write-166948584?ref=5020518&ref_source=video"}>Перейти в диалог</a>}
       />
       <GameModal
         title={'Вывод'}
         body={"Твой баланс равен нулю!"}
         onClose={onCloseWithdraw}
         isOpen={isOpenWithdraw}
-        // textButton={<a href={"https://vk.com/im?sel=-166948584"}>Перейти в диалог</a>}
       />
     </Panel>
   );
