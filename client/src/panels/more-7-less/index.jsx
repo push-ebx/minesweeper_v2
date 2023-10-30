@@ -107,9 +107,10 @@ const More7Less = ({id}) => {
       onOpen()
       return
     }
+    if (lost_time === 2 || lost_time === 1) return
+    await More7LessService.newBet(bet, type_bet)
     setIsGame(true)
     dispatch(changeBalance(-bet))
-    await More7LessService.newBet(bet, type_bet)
   }
 
   const TimerCard = () => (
