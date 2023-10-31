@@ -5,7 +5,7 @@ const {MD5, randomString, logger} = require("../utils");
 const getRandomInt = max => Math.floor(Math.random() * max) + 1;
 
 class more7LessService {
-  history = [[1, 1], [2,4], [5,2], [6,3], [6,6], [1, 1], [2,4], [5,2], [6,3], [6,6], [1, 1], [2,4], [5,2], [6,3]];
+  history = [[1, 1], [2, 4], [5, 2], [6, 3], [6, 6], [1, 1], [2, 4], [5, 2], [6, 3], [6, 6], [1, 1], [2, 4], [5, 2], [6, 3]];
   io;
   game = {
     bets_by_type: {more: [], equal: [], less: []},
@@ -25,10 +25,23 @@ class more7LessService {
     const win_type = sum_dices > 7 ? 'more' : (sum_dices < 7 ? 'less' : 'equal')
     this.history.unshift([this.game.dices[0], this.game.dices[1]])
 
-    this.game.bets_by_type[win_type].map(async bet => {
-      const user = await userService.getUser(bet.id_vk)
-      await userService.setBalance(bet.id_vk, +user.balance + bet.bet * this.coefficients[win_type])
+    this.game.bets_by_type[win_type].map(async bet => { // winners
+      const {balance, all_coin_win, all_coin_lose, all_games_win, all_games_lose} = await userService.getUser(bet.id_vk)
+      const prize = bet.bet * this.coefficients[win_type]
+      await userService.setBalance(bet.id_vk, balance + prize)
+      await userService.setStatistics(bet.id_vk, all_coin_win + prize, all_coin_lose,
+                          all_games_win + 1, all_games_lose)
     })
+
+    for (const [key, value] of Object.entries(this.game.bets_by_type)) {
+      if (key !== win_type) {
+        value.map(async bet => { // losers
+          const {all_coin_win, all_coin_lose, all_games_win, all_games_lose} = await userService.getUser(bet.id_vk)
+          await userService.setStatistics(bet.id_vk, all_coin_win, all_coin_lose + bet.bet,
+            all_games_win, all_games_lose + 1)
+        })
+      }
+    }
 
     setTimeout(() => {
       this.game = {
