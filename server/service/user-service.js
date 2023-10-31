@@ -22,15 +22,30 @@ class UserService {
       avatar_url,
       balance: 0,
       all_coin_win: 0,
-      all_games: 0,
+      all_coin_lose: 0,
+      all_games_win: 0,
+      all_games_lose: 0,
       is_online: true
     });
     user.save().then(() => console.log(`User successfully registered with id: ${count + 1}`));
     return user
   }
 
+  async setStatistics(id_vk, all_coin_win, all_coin_lose, all_games_win, all_games_lose) {
+    return UserSchema.updateOne({id_vk}, {
+      all_coin_win, all_coin_lose, all_games_win, all_games_lose
+    })
+  }
+
   async getUser(id_vk) {
-    return UserSchema.findOne({id_vk})
+    const user = await UserSchema.findOne({id_vk})
+
+    return {
+      ...Object.assign({}, user)._doc,
+      balance: +user.balance,
+      all_coin_win: +user.all_coin_win,
+      all_coin_lose: +user.all_coin_lose
+    }
   }
 
   async updateBalance(id_vk) {

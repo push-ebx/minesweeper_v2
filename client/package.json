@@ -5,12 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
+    "prod": "vite --host",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
     "tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=0.0.0.0 --port=5173 endpoints=[web]",
-    "deploy": "vk-miniapps-deploy",
-    "clean-source": "rimraf README.md src webroot package.json"
+    "deploy": "vk-miniapps-deploy"
   },
   "dependencies": {
     "@happysanta/router": "^0.3.1",

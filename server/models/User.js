@@ -1,6 +1,4 @@
 const {Schema, model} = require('mongoose')
-const {Decimal128} = require('bson')
-const mongoose = require('mongoose');
 
 const UserSchema = new Schema({
   id_vk: {type: String, unique: true, required: true},
@@ -10,7 +8,9 @@ const UserSchema = new Schema({
   avatar_url: {type: String, unique: false, required: true},
   balance: {type: String, required: true},
   all_coin_win: {type: String, required: true},
-  all_games: {type: Number, required: true},
+  all_coin_lose: {type: String, required: true},
+  all_games_win: {type: Number, required: true},
+  all_games_lose: {type: Number, required: true},
   is_online: {type: Boolean}
 })
 

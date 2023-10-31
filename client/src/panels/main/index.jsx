@@ -9,14 +9,21 @@ import {GameModal} from "@/components/GameModal/index.jsx";
 import bridge from "@vkontakte/vk-bridge";
 import UserService from "@/api/user.js";
 import {Loader} from "@/components/Loader/index.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const Main = ({id}) => {
-  const {balance, avatar_url, first_name, last_name, fetching, updateInfo} = useFetchUser()
+  const {
+    balance, avatar_url, first_name, last_name, all_coin_lose,
+    all_coin_win, all_games_lose, all_games_win, fetching, updateInfo
+  } = useFetchUser()
   const online = useSelector(state => state.app.online)
   const {isOpen: isOpenDeposit, onOpen: onOpenDeposit, onClose: onCloseDeposit} = useDisclosure();
   const {isOpen: isOpenWithdraw, onOpen: onOpenWithdraw, onClose: onCloseWithdraw} = useDisclosure();
   const [isWithdraw, setIsWithdraw] = useState(false)
+
+  useEffect(() => {
+    onRefresh();
+  }, []);
 
   const onRefresh = async () => {
     await updateInfo()
@@ -64,11 +71,11 @@ const Main = ({id}) => {
           </BoxInfo>
 
           <div className={styles.statistics}>
-            {/*<div>Столько выиграл</div>*/}
-            {/*<div>Столько проиграл</div>*/}
-            {/*<div>Сколько ставок</div>*/}
-            {/*<div>Выиграно</div>*/}
-            {/*<div>Проиграно</div>*/}
+            <div><span>Выиграных ставок:</span>   <span>{all_games_win}</span></div>
+            <div><span>Проиграных ставок:</span>  <span>{all_games_lose}</span></div>
+            <div><span>Всего ставок:</span>       <span>{all_games_win + all_games_lose}</span></div>
+            <div><span>Всего Выиграно:</span>     <span>{formatNumber(all_coin_win)}</span></div>
+            <div><span>Всего Проиграно:</span>    <span>{formatNumber(all_coin_lose)}</span></div>
           </div>
         </div>
       </PullToRefresh>
@@ -79,7 +86,8 @@ const Main = ({id}) => {
           " сообщение (оно скопируется в буфер обмена): Передать @saper_bot__bandit [сумма]."}
         onClose={onCloseDeposit}
         isOpen={isOpenDeposit}
-        textButton={<a target={'_blank'} href={"https://vk.com/write-166948584?ref=5020518&ref_source=video"}>Перейти в диалог</a>}
+        textButton={<a target={'_blank'} href={"https://vk.com/write-166948584?ref=5020518&ref_source=video"}>Перейти в
+          диалог</a>}
       />
       <GameModal
         title={'Вывод'}

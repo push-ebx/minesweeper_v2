@@ -108,7 +108,7 @@ const More7Less = ({id}) => {
       return
     }
     if (lost_time === 2 || lost_time === 1) return
-    await More7LessService.newBet(bet, type_bet)
+    await More7LessService.newBet(+bet, type_bet)
     setIsGame(true)
     dispatch(changeBalance(-bet))
   }

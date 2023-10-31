@@ -7,10 +7,12 @@ import {router} from "./utils/routing";
 import store from './slices';
 import {AdaptivityProvider, ConfigProvider} from "@vkontakte/vkui";
 import {Provider} from "react-redux";
+import {UpdatingAppPage} from "@/components/UpdatingAppPage";
 
 bridge.send('VKWebAppInit');
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  // <UpdatingAppPage />
   <RouterContext.Provider value={router}>
     <NextUIProvider>
       <Provider store={store}>
