@@ -1,5 +1,5 @@
 import {Tabbar as TabbarVK, TabbarItem} from "@vkontakte/vkui";
-import {PAGE_GAMES, PAGE_MAIN, PANEL_GAMES, PANEL_MAIN} from "@/utils/routing/routes.js";
+import {PAGE_GAMES, PAGE_MAIN, PAGE_TOP, PANEL_GAMES, PANEL_MAIN, PANEL_TOP} from "@/utils/routing/routes.js";
 import {Icon28CupOutline, Icon28GameOutline, Icon28HomeOutline} from "@vkontakte/icons";
 import {router} from "@/utils/routing";
 
@@ -18,9 +18,12 @@ const Tabbar = ({activePanel}) => {
       >
         <Icon28GameOutline />
       </TabbarItem>
-      {/*<TabbarItem>*/}
-      {/*  <Icon28CupOutline />*/}
-      {/*</TabbarItem>*/}
+      <TabbarItem
+        selected={activePanel === PANEL_TOP}
+        onClick={() => router.pushPage(PAGE_TOP)}
+      >
+        <Icon28CupOutline />
+      </TabbarItem>
     </TabbarVK>
   );
 };

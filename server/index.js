@@ -17,7 +17,7 @@ app
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*", // replace
+    origin: "*",
   },
 });
 
@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
 })
 
 mongoose.connect(DB_URL, {useUnifiedTopology: true, useNewUrlParser: true});
+
 server.listen(PORT, 'localhost',() => {
   console.log(`Server started on ${PORT}`);
 });

@@ -9,7 +9,7 @@ const Games = ({id}) => {
       <PanelHeader
         before={<PanelHeaderBack onClick={() => router.popPage()}/>}
       >
-        Игры
+        <h2>Игры</h2>
       </PanelHeader>
 
       <div

@@ -39,7 +39,7 @@ class UserService {
 
   async getUser(id_vk) {
     const user = await UserSchema.findOne({id_vk})
-
+    if (!user) return null
     return {
       ...Object.assign({}, user)._doc,
       balance: +user.balance,
@@ -50,7 +50,7 @@ class UserService {
 
   async updateBalance(id_vk) {
     // const socket_id = Object.keys(this.users).find(key => this.users[key] === +id_vk)
-    this.socket.emit('update balance', {id_vk})
+    this.socket.emit('update balance', {id_vk}) // дэмн
     return UserSchema.findOne({id_vk})
   }
 
@@ -79,6 +79,10 @@ class UserService {
     }
     logger.error(`withdraw(): (id_vk: ${id_vk}, balance: ${user.balance})`);
     return 'error'
+  }
+
+  async getTop() {
+    return UserSchema.find().sort({all_coin_win: -1}).limit(50)
   }
 }
 

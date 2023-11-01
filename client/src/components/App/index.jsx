@@ -6,7 +6,7 @@ import {
   PANEL_GAMES,
   PANEL_MAIN,
   PANEL_MINES,
-  PANEL_MORE_7_LESS,
+  PANEL_MORE_7_LESS, PANEL_TOP,
   VIEW_MAIN
 } from "@/utils/routing/routes.js";
 import {Games, Main, Mines, More7Less} from "@/panels"
@@ -21,6 +21,7 @@ import {NumberKeyboard} from "@/components/NumberKeyborad";
 import {useLocation} from "@happysanta/router";
 import {useDispatch} from "react-redux";
 import {setOnline} from "@/slices/app-slice.js";
+import {Top} from "@/panels/top";
 
 export const App = () => {
   const [activePanel] = useActivePanel(VIEW_MAIN)
@@ -51,6 +52,7 @@ export const App = () => {
             <View id={VIEW_MAIN} activePanel={activePanel}>
               <Main id={PANEL_MAIN} />
               <Games id={PANEL_GAMES} />
+              <Top id={PANEL_TOP} />
               <Mines id={PANEL_MINES} />
               <More7Less id={PANEL_MORE_7_LESS} />
             </View>

@@ -15,4 +15,9 @@ export default class UserService {
     const res = await $api.post('/withdraw')
     return res.data
   }
+
+  static async getTop () {
+    const res = await $api.get('/getTop')
+    return res.data
+  }
 }

@@ -74,8 +74,8 @@ const Main = ({id}) => {
             <div><span>Выиграных ставок:</span>   <span>{all_games_win}</span></div>
             <div><span>Проиграных ставок:</span>  <span>{all_games_lose}</span></div>
             <div><span>Всего ставок:</span>       <span>{all_games_win + all_games_lose}</span></div>
-            <div><span>Всего Выиграно:</span>     <span>{formatNumber(all_coin_win)}</span></div>
-            <div><span>Всего Проиграно:</span>    <span>{formatNumber(all_coin_lose)}</span></div>
+            <div><span>Всего выиграно:</span>     <span>{formatNumber(all_coin_win)}</span></div>
+            <div><span>Всего проиграно:</span>    <span>{formatNumber(all_coin_lose)}</span></div>
           </div>
         </div>
       </PullToRefresh>

@@ -26,7 +26,6 @@ class UserController {
     }
   }
 
-
   async createUser(req, res, next) {
     try {
       const user = await userService.createUser(req.body);
@@ -45,6 +44,16 @@ class UserController {
       return res.json(result);
     } catch (e) {
       logger.info(`withdraw(): ${e}`);
+      next(e);
+    }
+  }
+
+  async getTop(req, res, next) {
+    try {
+      const top = await userService.getTop();
+      return res.json(top);
+    } catch (e) {
+      logger.info(`updateBalance(): ${e}`);
       next(e);
     }
   }
