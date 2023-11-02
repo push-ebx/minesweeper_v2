@@ -82,7 +82,14 @@ class UserService {
   }
 
   async getTop() {
-    return UserSchema.find().sort({all_coin_win: -1}).limit(50)
+    const users = await UserSchema.find().sort({all_coin_win: -1}).limit(50)
+
+    return users.map(user => ({
+      ...Object.assign({}, user)._doc,
+      balance: +user.balance,
+      all_coin_win: +user.all_coin_win,
+      all_coin_lose: +user.all_coin_lose
+    }))
   }
 }
 

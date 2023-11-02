@@ -1,12 +1,7 @@
 import styles from './styles.module.scss'
-import {Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, PullToRefresh} from "@vkontakte/vkui";
-import {useFetchUser} from "@/utils/useFetchUser";
-import {BoxInfo} from "@/components/BoxInfo";
+import {Panel, PanelHeader, PanelHeaderBack} from "@vkontakte/vkui";
 import {formatNumber} from "@/utils";
-import {Button, ButtonGroup, useDisclosure, User} from "@nextui-org/react";
-import {useSelector} from "react-redux";
-import {GameModal} from "@/components/GameModal/index.jsx";
-import bridge from "@vkontakte/vk-bridge";
+import {User} from "@nextui-org/react";
 import UserService from "@/api/user.js";
 import {Loader} from "@/components/Loader/index.jsx";
 import {useEffect, useState} from "react";
@@ -22,6 +17,7 @@ const Top = ({id}) => {
 
   const fetchUsers = async () => {
     const users = await UserService.getTop();
+    console.log(users)
     setUsers(users)
   }
 
@@ -46,7 +42,7 @@ const Top = ({id}) => {
                   key={i}
                 />
               </div>
-              <h3>{formatNumber(user.all_coin_win.low)}</h3>
+              <h3>{formatNumber(user.all_coin_win)}</h3>
             </div>
           ))
         }

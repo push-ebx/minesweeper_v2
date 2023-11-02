@@ -1,10 +1,20 @@
 .top {
-  height: calc(100vh - 2 * var(--vkui--size_panel_header_height--regular));
+  height: calc(100vh - var(--vkui--size_panel_header_height--regular) - var(--vkui_internal--tabbar_height));
   padding: 1rem;
   display: flex;
   flex-direction: column;
   row-gap: .7rem;
   overflow-y: scroll;
+}
+
+.user {
+  span  {
+    max-width: 40vw;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
 .loader {

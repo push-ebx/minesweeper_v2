@@ -12,16 +12,16 @@ import {UpdatingAppPage} from "@/components/UpdatingAppPage";
 bridge.send('VKWebAppInit');
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <UpdatingAppPage />
-  // <RouterContext.Provider value={router}>
-  //   <NextUIProvider>
-  //     <Provider store={store}>
-  //       <ConfigProvider isWebView={true} appearance="dark">
-  //         <AdaptivityProvider>
-  //           <App />
-  //         </AdaptivityProvider>
-  //       </ConfigProvider>
-  //     </Provider>
-  //   </NextUIProvider>
-  // </RouterContext.Provider>
+  // <UpdatingAppPage />
+  <RouterContext.Provider value={router}>
+    <NextUIProvider>
+      <Provider store={store}>
+        <ConfigProvider isWebView={true} appearance="dark">
+          <AdaptivityProvider>
+            <App />
+          </AdaptivityProvider>
+        </ConfigProvider>
+      </Provider>
+    </NextUIProvider>
+  </RouterContext.Provider>
 )
