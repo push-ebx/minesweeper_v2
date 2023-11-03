@@ -29,7 +29,7 @@ export const App = () => {
 
   return (
     <>
-      {/*<Loader isLoading={!userID} isFullScreen/>*/}
+      <Loader isLoading={!userID} isFullScreen/>
       <AppRoot className={"dark"}>
         <SplitLayout>
           <SplitCol>

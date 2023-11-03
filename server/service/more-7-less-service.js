@@ -14,10 +14,12 @@ class more7LessService {
     hash: "",
     key: "",
     dices: [],
+    isGame: true
   };
   coefficients = {more: 1.9, less: 1.9, equal: 5.8};
 
   stopGame() {
+    this.isGame = false
     logger.info(`stopGame(): (game: ${JSON.stringify(this.game)})`);
 
     this.io.emit('stop game m7l', {dices: this.game.dices, key: this.game.key})
@@ -50,7 +52,8 @@ class more7LessService {
         lost_time: -1,
         hash: "",
         key: "",
-        dices: []
+        dices: [],
+        isGame: true
       }
       logger.info(`stopGame(): game is reset`);
     }, 5000)
@@ -75,7 +78,7 @@ class more7LessService {
   }
 
   async newBet(id_vk, bet, type_bet) {
-    if (!this.game.lost_time) return 'Окончание раунда...'
+    if (!this.game.lost_time || !this.isGame) return 'Окончание раунда...'
     if (this.game.bets.find(bet => bet.id_vk === id_vk)) return 'Ты уже поставил!'
     if (bet <= 0) return 'Ставка меньше или равна нулю!'
     if (!isFinite(bet)) return 'Некорректная ставка!'
