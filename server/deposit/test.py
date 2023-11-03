@@ -8,6 +8,6 @@ users = collection.find()
 for user in users:
     collection.update_one({'id_vk': user['id_vk']}, {'$set': {
         'balance': Int64(float(user['balance'])),
-        'all_coin_win': Int64(float(user['all_coin_win'])),
-        'all_coin_lose': Int64(float(user['all_coin_lose']))
+        # 'all_coin_win': Int64(float(user['all_coin_win'])),
+        # 'all_coin_lose': Int64(float(user['all_coin_lose']))
     }})
