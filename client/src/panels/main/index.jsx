@@ -46,7 +46,7 @@ const Main = ({id}) => {
   }
 
   return (
-    <Panel id={id}>
+    <Panel id={id} className={styles.panel_main}>
       <Loader isLoading={isWithdraw} isFullScreen/>
       <PanelHeader className={styles.header}>
         <PanelHeaderContent>

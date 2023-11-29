@@ -1,3 +1,7 @@
+.panel_main {
+  overflow-x: hidden;
+}
+
 .main {
   height: calc(100vh - var(--vkui--size_panel_header_height--regular));
   padding: 1rem;
