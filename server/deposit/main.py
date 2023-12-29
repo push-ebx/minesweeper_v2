@@ -19,7 +19,7 @@ async def deposit(message: Message):
       collection.update_one({"id_vk": uid}, {"$set": {"balance": str(balance + amount)}})
 
       requests.get(f'{SERVER_URL}/api/updateBalance?id_vk={uid}')
-  except e as Exception:
+  except Exception as e:
     print(e)
 
 user.run_forever()
