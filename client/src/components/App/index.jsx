@@ -14,10 +14,16 @@ import {Loader} from "@/components/Loader";
 import {useDispatch} from "react-redux";
 import {setOnline} from "@/slices/app-slice.js";
 
+import Snowfall from 'react-snowfall'
+import snowflake_svq from "@/../assets/svg/snowflake.svg";
+
 export const App = () => {
   const [activePanel] = useActivePanel(VIEW_MAIN)
   const {userID, fetching, updateInfo} = useFetchUser()
   const dispatch = useDispatch();
+
+  const snowflake = document.createElement('img');
+  snowflake.src = snowflake_svq;
 
   useEffect(() => {
     if (userID) {
@@ -29,6 +35,18 @@ export const App = () => {
 
   return (
     <>
+      <Snowfall style={{
+        position: 'fixed',
+        width: '100vw',
+        height: '100vh',
+        zIndex: 999,
+        opacity: 0.7
+      }}
+        snowflakeCount={15}
+        speed={[0.5, 0.8]}
+        radius={[12, 20]}
+        images={[snowflake]}
+      />
       <Loader isLoading={!userID} isFullScreen/>
       <AppRoot className={"dark"}>
         <SplitLayout>

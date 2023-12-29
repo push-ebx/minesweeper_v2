@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import {Panel, PanelHeader, PanelHeaderBack} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderBack, PanelHeaderButton} from "@vkontakte/vkui";
 import {router} from "@/utils/routing";
 import {useEffect, useState} from "react";
 import {Button, ButtonGroup, CircularProgress, Input, ScrollShadow, Skeleton, useDisclosure, User}
@@ -12,6 +12,10 @@ import {Dice} from "@/components/Dice";
 import {GameModal} from "@/components/GameModal"
 import {BoxInfo} from "@/components/BoxInfo";
 import {formatNumber} from "@/utils/index.js";
+import {Icon28ChevronBack} from "@vkontakte/icons";
+
+import Confetti from 'react-confetti'
+import useWindowDimensions from "@/utils/useWindowDimensions";
 
 const More7Less = ({id}) => {
   const balance = useSelector(state => state.user.balance)
@@ -30,6 +34,8 @@ const More7Less = ({id}) => {
   const dispatch = useDispatch();
 
   const coefficients = {more: 1.9, less: 1.9, equal: 5.8};
+
+  const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     fetchBets()
@@ -80,7 +86,7 @@ const More7Less = ({id}) => {
   const stopGame = (data) => {
     setDices(data.dices)
 
-    setTimeout(() => {
+    setTimeout(() => { // открывается попап
       onOpen()
       setHistory(prev => [data.dices, ...prev])
       setKey(data.key)
@@ -133,7 +139,11 @@ const More7Less = ({id}) => {
 
   return (
     <Panel id={id}>
-      <PanelHeader before={<PanelHeaderBack onClick={() => router.popPage()}/>}>
+      <PanelHeader before={
+        <PanelHeaderButton onClick={() => router.popPage()}>
+          <Icon28ChevronBack style={{height: '4.3vh', width: '4.3vh'}}/>
+        </PanelHeaderButton>
+      }>
         Больше 7 Меньше
       </PanelHeader>
       <div
@@ -251,6 +261,15 @@ const More7Less = ({id}) => {
         onClose={onClose}
         isOpen={isOpen && modalBody}
       />
+
+      {
+        isOpen && modalBody &&
+        <Confetti
+          style={{position: 'absolute', zIndex: 9999999}}
+          width={width}
+          height={height}
+        />
+      }
     </Panel>
   );
 };

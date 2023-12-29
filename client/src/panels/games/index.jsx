@@ -1,13 +1,18 @@
 import {Badge, Card, CardBody, CardFooter, Image} from "@nextui-org/react";
-import {Panel, PanelHeader, PanelHeaderBack} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderBack, PanelHeaderButton} from "@vkontakte/vkui";
 import {router} from "@/utils/routing";
 import {gameList} from "./game-list";
+import {Icon28ChevronBack} from '@vkontakte/icons'
 
 const Games = ({id}) => {
   return (
     <Panel id={id}>
       <PanelHeader
-        before={<PanelHeaderBack onClick={() => router.popPage()}/>}
+        before={
+          <PanelHeaderButton onClick={() => router.popPage()}>
+            <Icon28ChevronBack style={{height: '4.3vh', width: '4.3vh'}}/>
+          </PanelHeaderButton>
+        }
       >
         <h2>Игры</h2>
       </PanelHeader>

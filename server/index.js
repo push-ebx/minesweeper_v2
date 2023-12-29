@@ -7,6 +7,8 @@ const router = require("./router")
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+// process.env.NODE_ENV = 'PROD'
+
 const PORT = process.env.NODE_ENV === 'PROD' ? process.env.PROD_PORT : process.env.DEV_PORT;
 const DB_URL = process.env.NODE_ENV === 'PROD' ? process.env.PROD_DB_URL : process.env.DEV_DB_URL;
 
