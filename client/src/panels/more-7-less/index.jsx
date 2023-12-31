@@ -262,14 +262,14 @@ const More7Less = ({id}) => {
         isOpen={isOpen && modalBody}
       />
 
-      {
-        isOpen && modalBody &&
-        <Confetti
-          style={{position: 'absolute', zIndex: 9999999}}
-          width={width}
-          height={height}
-        />
-      }
+      {/*{*/}
+      {/*  isOpen && modalBody &&*/}
+      {/*  <Confetti*/}
+      {/*    style={{position: 'absolute', zIndex: 9999999}}*/}
+      {/*    width={width}*/}
+      {/*    height={height}*/}
+      {/*  />*/}
+      {/*}*/}
     </Panel>
   );
 };

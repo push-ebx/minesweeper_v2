@@ -8,19 +8,19 @@ export class TypeBet {
 
 export default class More7LessService {
   static async newBet(bet, type_bet) {
-    return $api.post('/newBet', {
+    return $api.post('/newBetM7L', {
       bet,
       type_bet
     })
   }
 
   static async getBank() {
-    const res = await $api.get('/getBank')
+    const res = await $api.get('/getBankM7L')
     return res.data
   }
 
   static async getHistory() {
-    const res = await $api.get('/getHistory')
+    const res = await $api.get('/getHistoryM7L')
     return res.data
   }
 }

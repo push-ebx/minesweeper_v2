@@ -1,11 +1,11 @@
 import mines from "./mines.jpg"
 import more_7_less from "./more_7_less.jpg"
-import {PAGE_WHEEL, PAGE_MORE_7_LESS} from "@/utils/routing/routes.js";
+import {PAGE_MORE_7_LESS, PAGE_CRUSH} from "@/utils/routing/routes.js";
 
 export const gameList = [
   // {
-  //   label: "Wheel",
-  //   page_title: PAGE_WHEEL,
+  //   label: "Crash",
+  //   page_title: PAGE_CRUSH,
   //   img: mines,
   // },
   {

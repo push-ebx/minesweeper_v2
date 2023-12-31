@@ -2,9 +2,10 @@ import './index.scss'
 import '@vkontakte/vkui/dist/vkui.css'
 import {AppRoot, SplitCol, SplitLayout, View} from "@vkontakte/vkui";
 import {
-  PANEL_GAMES,PANEL_MAIN, PANEL_MINES, PANEL_MORE_7_LESS, PANEL_TOP, PANEL_WHEEL,VIEW_MAIN
+  PANEL_CRUSH,
+  PANEL_GAMES, PANEL_MAIN, PANEL_MINES, PANEL_MORE_7_LESS, PANEL_TOP, PANEL_WHEEL, VIEW_MAIN
 } from "@/utils/routing/routes.js";
-import {Games, Main, Mines, More7Less, Top, Wheel} from "@/panels"
+import {Crush, Games, Main, Mines, More7Less, Top, Wheel} from "@/panels"
 import {useActivePanel} from "@/utils/routing";
 import {Tabbar} from "@/components/Tabbar";
 import {useEffect} from "react";
@@ -58,6 +59,7 @@ export const App = () => {
               <Mines id={PANEL_MINES} />
               <More7Less id={PANEL_MORE_7_LESS} />
               <Wheel id={PANEL_WHEEL} />
+              <Crush id={PANEL_CRUSH} />
             </View>
             <Tabbar activePanel={activePanel} />
           </SplitCol>

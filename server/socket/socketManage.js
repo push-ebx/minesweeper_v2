@@ -1,4 +1,5 @@
 const more7LessService = require('../service/more-7-less-service');
+const crashService = require('../service/crash-service');
 const userService = require('../service/user-service');
 const {logger} = require("../utils");
 
@@ -27,6 +28,7 @@ module.exports = io => socket => {
   })
 
   more7LessService.io = io;
+  crashService.io = io;
   userService.io = io;
   userService.users = users;
   userService.socket = socket;
